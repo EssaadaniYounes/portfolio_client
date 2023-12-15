@@ -2,13 +2,13 @@ export const revalidate = 1;
 import React from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { AiFillEye } from "react-icons/ai";
-import SkillService from "@/services/SkillService";
+import { getAuthSkills } from "@/services/SkillService";
 import { cookies } from "next/headers";
 import { CookieNames } from "@/utils/CookieNamesEnum";
 import { Skill } from "../../../../types";
 
 async function UserSkills() {
-  const { data: skills } = (await SkillService.getAuthSkills(
+  const { data: skills } = (await getAuthSkills(
     cookies().get(CookieNames.TOKEN)?.value || ""
   )) as { data: Skill[] };
   return (

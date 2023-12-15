@@ -11,13 +11,13 @@ const caveat = Gloria_Hallelujah({
 
 function page() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2">
+    <div className="grid grid-cols-1 sm:grid-cols-3">
       <section className="col-span-1 ">
         <Suspense fallback={<p>Rendering</p>}>
           <UserDetails />
         </Suspense>
       </section>
-      <section className="col-span-1 m-3 space-y-2">
+      <section className="col-span-2 m-3 space-y-2">
         <UserSkills />
         <UserProjects />
       </section>

@@ -1,6 +1,6 @@
 "use client";
 import { Cookie } from "@/services";
-import FileService from "@/services/File";
+import { upload } from "@/services/FileService";
 import { CookieNames } from "@/utils/CookieNamesEnum";
 import React, { RefObject, useRef, useState } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
@@ -17,7 +17,7 @@ function FileUpload({
     setUploading(true);
     const chosedFile = fileInputRef.current.files[0];
     console.log(chosedFile);
-    const { data } = await FileService.upload(
+    const { data } = await upload(
       chosedFile,
       Cookie.getClientCookie(CookieNames.TOKEN) ?? ""
     );

@@ -2,12 +2,11 @@ import React from "react";
 import { EditProfileCard } from "@/components";
 import { cookies } from "next/headers";
 
-import { User } from "@/services";
-import { VscSaveAs } from "react-icons/vsc";
+import { getAuthenticatedUser } from "@/services/UserService";
 import { CookieNames } from "@/utils/CookieNamesEnum";
 import { revalidatePath } from "next/cache";
 async function page() {
-  const data = (await User.getAuthenticatedUser(
+  const data = (await getAuthenticatedUser(
     cookies().get(CookieNames.TOKEN)?.value
   )) as AuthenticatedUser;
   const revalidateHandler = async () => {

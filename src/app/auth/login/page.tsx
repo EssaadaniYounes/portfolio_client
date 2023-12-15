@@ -8,7 +8,7 @@ import { AiOutlineLogin, AiOutlineRollback } from "react-icons/ai";
 import AuthCardContainer from "@/components/partials/cards/AuthCardContainer";
 import Input from "@/components/partials/form/Input";
 import { LoginSchema } from "@/services/Schemas";
-import { User } from "@/services";
+import { login } from "@/services/UserService";
 import useRedirect from "@/hooks/useRedirect";
 export const Home = () => {
   const redirect = useRedirect();
@@ -24,7 +24,7 @@ export const Home = () => {
           }}
           validationSchema={LoginSchema}
           onSubmit={async (values, {}) => {
-            const res = await User.login(values, setSubmitting, setError);
+            const res = await login(values, setSubmitting, setError);
             redirect("/me");
           }}
         >

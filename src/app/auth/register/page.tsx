@@ -6,7 +6,7 @@ import { Formik, Form } from "formik";
 import Link from "next/link";
 import { RegisterSchema } from "@/services/Schemas";
 import { AiOutlineLogin, AiOutlineRollback } from "react-icons/ai";
-import User from "@/services/User";
+import { register } from "@/services/UserService";
 import { ResponseStatus } from "@/utils/ResponseStatus";
 import Cookie from "@/services/Cookie";
 import useRedirect from "@/hooks/useRedirect";
@@ -26,7 +26,7 @@ function Home() {
           validationSchema={RegisterSchema}
           onSubmit={async (values) => {
             setSubmitting(true);
-            const res = await User.register({ ...values });
+            const res = await register({ ...values });
             if (res.status == ResponseStatus.CREATED) {
               const data = res.data as RegisterResponse;
               Cookie.setCookie("token", "Bearer " + data.token, 1);

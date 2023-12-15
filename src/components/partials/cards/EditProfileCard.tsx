@@ -1,5 +1,6 @@
 "use client";
-import { Cookie, User } from "@/services";
+import { Cookie } from "@/services";
+import { updateProfile } from "@/services/UserService";
 import { CookieNames } from "@/utils/CookieNamesEnum";
 import React, { useState } from "react";
 import { BiSolidUser } from "react-icons/bi";
@@ -41,9 +42,9 @@ function EditProfileCard({
     setPayload({ ...payload, ["skills"]: skills });
   };
 
-  const updateProfile = async () => {
+  const submit = async () => {
     setSubmiting(true);
-    await User.updateProfile(
+    await updateProfile(
       payload,
       Cookie.getClientCookie(CookieNames.TOKEN) ?? ""
     );
@@ -68,7 +69,7 @@ function EditProfileCard({
           Edit user data
         </h3>
         <button
-          onClick={updateProfile}
+          onClick={submit}
           className="btn btn-sm bg-orange-300 text-gray-700"
         >
           <span>Save</span>

@@ -1,70 +1,57 @@
 import axios from "axios";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const Accept = "application/json";
 
-class Fetch {
-  private static instance: Fetch;
-  private readonly API_URL = process.env.NEXT_PUBLIC_API_URL;
-  private readonly Accept = "application/json";
-  private constructor() {}
-
-  public static getInstance() {
-    if (!Fetch.instance) {
-      Fetch.instance = new Fetch();
-    }
-
-    return Fetch.instance;
-  }
-
-  public async getAll(url: string, headers?: any) {
-    try {
-      const data = await axios.get(this.API_URL + url, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          ...headers,
-        },
-      });
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  public async post(url: string, data: any, headers?: any) {
-    const res = await axios({
-      method: "POST",
-      url: this.API_URL + url,
+const getAll = async (url: string, headers?: any) => {
+  try {
+    const data = await axios.get(API_URL + url, {
       headers: {
-        Accept: this.Accept,
-        ...headers,
-      },
-      data,
-    });
-    return res;
-  }
-  public async put(url: string, data: any, headers?: any) {
-    const res = await axios({
-      method: "PUT",
-      url: this.API_URL + url,
-      headers: {
-        Accept: this.Accept,
-        ...headers,
-      },
-      data,
-    });
-    return res;
-  }
-
-  public async delete(url: string, headers?: any) {
-    const res = await axios({
-      method: "DELETE",
-      url: this.API_URL + url,
-      headers: {
-        Accept: this.Accept,
+        "Content-Type": "application/json",
+        Accept: "application/json",
         ...headers,
       },
     });
-    return res.data;
+    return data;
+  } catch (e) {
+    console.log(e);
   }
-}
+};
 
-export default Fetch;
+const post = async (url: string, data: any, headers?: any) => {
+  const res = await axios({
+    method: "POST",
+    url: API_URL + url,
+    headers: {
+      Accept: Accept,
+      ...headers,
+    },
+    data,
+  });
+  return res;
+};
+const put = async (url: string, data: any, headers?: any) => {
+  const res = await axios({
+    method: "PUT",
+    url: API_URL + url,
+    headers: {
+      Accept: Accept,
+      ...headers,
+    },
+    data,
+  });
+  return res;
+};
+
+const _delete = async (url: string, headers?: any) => {
+  const res = await axios({
+    method: "DELETE",
+    url: API_URL + url,
+    headers: {
+      Accept: Accept,
+      ...headers,
+    },
+  });
+  return res.data;
+};
+
+export { getAll, post, put, _delete };

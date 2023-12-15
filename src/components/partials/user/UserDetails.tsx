@@ -4,7 +4,7 @@ import React from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { Gloria_Hallelujah } from "next/font/google";
 import Link from "next/link";
-import { User } from "@/services";
+import { getProfileData } from "@/services/UserService";
 import { cookies } from "next/headers";
 import { CookieNames } from "@/utils/CookieNamesEnum";
 import { UserData } from "../../../../types";
@@ -18,18 +18,22 @@ const caveat = Gloria_Hallelujah({
   display: "swap",
 });
 async function UserDetails() {
-  const { data } = (await User.getProfileData(
+  const { data } = (await getProfileData(
     cookies().get(CookieNames.TOKEN)?.value ?? ""
   )) as { data: UserData };
   return (
     <section className="flex-1 bg-gray-100 m-3 rounded-md shadow-gray-300 overflow-hidden shadow-sm">
-      <Image
-        src={data.profileUrl || ""}
-        width={1000}
-        height={200}
-        alt="Profile"
-      />
-      <div className="mt-2">
+      <div className="mx-auto w-fit mt-4">
+        <Image
+          src={data.profileUrl || ""}
+          width={300}
+          height={300}
+          alt="Profile"
+          priority
+          className="rounded-md shadow-sm"
+        />
+      </div>
+      <div className="mt-2 items-center text-center">
         <p className="text-center font-semibold text-lg text-gray-700">
           {data.firstName + " " + data.lastName}
         </p>

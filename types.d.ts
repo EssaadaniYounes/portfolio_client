@@ -33,3 +33,11 @@ type Skill = {
   id: string;
   name?: string;
 };
+type Project = {
+  id: string;
+  title?: string;
+  description?: string;
+  imageUrl?: string;
+  startedAt?: string;
+  endedAt?: string;
+};
